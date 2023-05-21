@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { addContact } from 'redux/operations';
 import { getContacts } from 'redux/selectors';
 import css from './ContactForm.module.css';
@@ -48,10 +47,7 @@ export default function ContactForm() {
     dispatch(addContact(newContact));
   };
 
-  const showMessage = e => {
-    Notify.init({ timeout: 5000, clickToClose: true });
-    return Notify.warning(e.target.title);
-  };
+  
 
   const reset = () => {
     setName('');
@@ -72,8 +68,7 @@ export default function ContactForm() {
           type="text"
           name="name"
           value={name}
-          onChange={handleChange}
-          onFocus={showMessage}
+          onChange={handleChange}          
           placeholder="type name here..."
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -88,8 +83,7 @@ export default function ContactForm() {
           type="tel"
           name="phone"
           value={phone}
-          onChange={handleChange}
-          onFocus={showMessage}
+          onChange={handleChange}          
           placeholder="type number here..."
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
