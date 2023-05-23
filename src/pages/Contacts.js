@@ -4,8 +4,10 @@ import { fetchContacts } from '../redux/contacts/operations';
 import { selectError, selectIsLoading } from '../redux/contacts/selectors';
 import SectionTitle from '../components/SectionTitle/SectionTitle';
 import ContactForm from '../components/ContactForm/ContactForm';
-import Filter from '../components/Filter/Filter';
+// import Filter from '../components/Filter/Filter';
 import ContactList from '../components/ContactList/ContactList';
+import { AppNav } from '../components/AppBar/AppBar';
+import { SideBar } from 'components/SideBar/SideBar';
 
 
 export default function Contacts() {
@@ -18,14 +20,18 @@ export default function Contacts() {
   }, [dispatch]);
 
   return (
+    <>
+    <AppNav/>
+    <SideBar/>
     <main>
       <SectionTitle text="Phonebook" />
       <ContactForm />
       <SectionTitle text="Contacts" />
-      <Filter />
+      {/* <Filter /> */}
       {isLoading && !error && <b>Request in progress...</b>}
       <ContactList />
     </main>
+    </>
   );
 }
 

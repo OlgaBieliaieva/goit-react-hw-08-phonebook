@@ -6,7 +6,7 @@ import { RestrictedRoute } from './RestrictedRoute';
 import { refreshUser } from '../redux/auth/operations';
 import { useAuth } from '../hooks/useAuth';
 import Home from '../pages/Home/Home';
-// import {Layout} from './Layout/Layout';
+
 
 
 // const HomePage = lazy(() => import('../pages/Home'));
@@ -26,27 +26,27 @@ export const App=()=>{
     <b>Refreshing user...</b>
   ) : (
     <Routes>
-      {/* <Route path="/" element={<Layout />}> */}
-        <Route path="/" element={<Home />} />
+      
+        <Route path="/" element={<RestrictedRoute redirectTo="/contacts" component={<Home />} />} />
         <Route
           path="/register"
           element={
             <RestrictedRoute redirectTo="/contacts" component={<RegisterPage />} />
           }
         />
-        <Route
+        {/* <Route
           path="/login"
           element={
             <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
           }
-        />
+        /> */}
         <Route
           path="/contacts"
           element={
-            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+            <PrivateRoute redirectTo="/" component={<ContactsPage />} />
           }
         />
-      {/* </Route> */}
+      
     </Routes>
   );
   

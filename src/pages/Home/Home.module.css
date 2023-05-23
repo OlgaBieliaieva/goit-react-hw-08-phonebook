@@ -19,22 +19,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #2f303a;
-  /* background-image: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(rgba(47, 48, 58, 0.4)),
-    to(rgba(47, 48, 58, 0.4))
-  ),
-  url(../../images/contact-g669fb53e0_1920.jpg);
-
-background-image: -o-linear-gradient(
-    left,
-    rgba(47, 48, 58, 0.4),
-    rgba(47, 48, 58, 0.4)
-  ),
-  url(../../images/contact-g669fb53e0_1920.jpg); */
-
   background-image: linear-gradient(
       to right,
       rgba(47, 48, 58, 0.4),
