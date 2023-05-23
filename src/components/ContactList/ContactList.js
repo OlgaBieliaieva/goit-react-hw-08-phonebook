@@ -1,16 +1,21 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/contacts/operations';
-import { getContacts, getFilterQuery } from 'redux/contacts/selectors';
+import { selectContacts, selectFilterQuery } from 'redux/contacts/selectors';
 import css from './ContactList.module.css';
 
 export default function ContactList() {
-  const contacts = useSelector(getContacts);
-  const filterQuery = useSelector(getFilterQuery);
+  const contacts = useSelector(selectContacts);
+  const filterQuery = useSelector(selectFilterQuery);
   const dispatch = useDispatch();
 
   const removeContact = e => {
     const contactId = e.target.id;
     dispatch(deleteContact(contactId));
+  };
+
+  const updateContact = e => {
+    const contactId = e.target.id;
+    dispatch(updateContact(contactId));
   };
 
   return contacts.length > 0 ? (
@@ -19,10 +24,18 @@ export default function ContactList() {
         .filter(contact =>
           contact.name.toLowerCase().includes(filterQuery.toLowerCase())
         )
-        .map(({ id, name, phone }) => {
+        .map(({ id, name, number }) => {
           return (
             <li className={css.contactItem} key={id}>
-              {name}: {phone}
+              {name}: {number}
+              <button
+                className={css.listItemBtn}
+                id={id}
+                type="button"
+                // onClick={}
+              >
+                Edit
+              </button>
               <button
                 className={css.listItemBtn}
                 id={id}
@@ -31,6 +44,7 @@ export default function ContactList() {
               >
                 Delete
               </button>
+             
             </li>
           );
         })}

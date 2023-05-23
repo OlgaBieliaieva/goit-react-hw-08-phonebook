@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from 'redux/contacts/operations';
-import { getContacts } from 'redux/contacts/selectors';
+import { selectContacts } from 'redux/contacts/selectors';
 import css from './ContactForm.module.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleChange = e => {
@@ -19,7 +19,7 @@ export default function ContactForm() {
         break;
 
       case 'phone':
-        setPhone(value);
+        setNumber(value);
         break;
 
       default:
@@ -29,14 +29,14 @@ export default function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault(e);
-    createContact(name, phone);
+    createContact(name, number);
     reset();
   };
 
-  const createContact = (name, phone) => {
+  const createContact = (name, number) => {
     const newContact = {
       name: name,
-      phone: phone,
+      number: number,
     };
     const contactNames = [];
     contacts.map(contact => contactNames.push(contact.name));
@@ -51,7 +51,7 @@ export default function ContactForm() {
 
   const reset = () => {
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
@@ -59,7 +59,7 @@ export default function ContactForm() {
       className={css.contactForm}
       onSubmit={handleSubmit}
       name={name}
-      number={phone}
+      number={number}
     >
       <label className={css.formLabel}>
         Name
@@ -82,7 +82,7 @@ export default function ContactForm() {
           className={css.formInput}
           type="tel"
           name="phone"
-          value={phone}
+          value={number}
           onChange={handleChange}          
           placeholder="type number here..."
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

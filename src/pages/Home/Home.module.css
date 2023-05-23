@@ -1,0 +1,49 @@
+.pageContainer {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  /* background-color: aqua; */
+}
+.heroContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+  width: 50%;
+  color: rgb(168, 170, 16);
+  font-size: 1.8em;
+  font-weight: 900;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #2f303a;
+  /* background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(rgba(47, 48, 58, 0.4)),
+    to(rgba(47, 48, 58, 0.4))
+  ),
+  url(../../images/contact-g669fb53e0_1920.jpg);
+
+background-image: -o-linear-gradient(
+    left,
+    rgba(47, 48, 58, 0.4),
+    rgba(47, 48, 58, 0.4)
+  ),
+  url(../../images/contact-g669fb53e0_1920.jpg); */
+
+  background-image: linear-gradient(
+      to right,
+      rgba(47, 48, 58, 0.4),
+      rgba(47, 48, 58, 0.4)
+    ),
+    url(../../images/contact-g669fb53e0_1920.jpg);
+}
+
+.loginContainer{
+    width: 50%;
+    
+}
