@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
-import { deleteContact } from 'redux/contacts/operations';
+// import { deleteContact } from 'redux/contacts/operations';
 import { selectContacts, selectFilterQuery } from 'redux/contacts/selectors';
 import css from './ContactList.module.css';
 
@@ -18,7 +18,7 @@ export let selectedRows = [];
 export default function ContactList() {
   const contacts = useSelector(selectContacts);
   const filterQuery = useSelector(selectFilterQuery);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filterQuery.toLowerCase())
   );
@@ -36,10 +36,10 @@ useEffect(()=>{
   //   dispatch(deleteContact(contactId));
   // };
 
-  const updateContact = e => {
-    const contactId = e.target.id;
-    dispatch(updateContact(contactId));
-  };
+  // const updateContact = e => {
+  //   const contactId = e.target.id;
+  //   dispatch(updateContact(contactId));
+  // };
 console.log(filteredContacts);
 
   return contacts.length > 0 ? (

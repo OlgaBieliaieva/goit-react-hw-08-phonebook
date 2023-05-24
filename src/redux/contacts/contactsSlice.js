@@ -35,6 +35,7 @@ const contactsSlice = createSlice({
     [addContact.rejected]: handleRejected,
     [deleteContact.pending]: handlePending,
     [deleteContact.fulfilled](state, action) {
+      console.log(action);
       state.isLoading = false;
       state.error = null;
       const index = state.items.findIndex(
