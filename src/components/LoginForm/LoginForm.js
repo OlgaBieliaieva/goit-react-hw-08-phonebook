@@ -35,7 +35,7 @@ export const LoginForm = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container sx={{ height: '100vh' }}>
         <CssBaseline />        
         <Box
           sx={{
