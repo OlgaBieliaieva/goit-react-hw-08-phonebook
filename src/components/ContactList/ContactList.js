@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, 
+  // useDispatch
+ } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 // import { deleteContact } from 'redux/contacts/operations';
 import { selectContacts, selectFilterQuery } from 'redux/contacts/selectors';

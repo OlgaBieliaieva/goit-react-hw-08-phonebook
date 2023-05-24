@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
 // MUI
@@ -5,8 +6,7 @@ import {
   Avatar,
   Button,
   CssBaseline,
-  TextField,
-  Link,
+  TextField, 
   Box,
   Grid,
   Typography,
@@ -55,6 +55,7 @@ export const LoginForm = () => {
           <Box
             component="form"
             noValidate
+            autoComplete="off"
             onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >
@@ -89,11 +90,13 @@ export const LoginForm = () => {
               Sign In
             </Button>
             <Grid container>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+              {/* <Grid item> */}
+                <Link to="/register" 
+                // variant="body2"
+                >
+                  Don't have an account? Sign Up
                 </Link>
-              </Grid>
+              {/* </Grid> */}
             </Grid>            
           </Box>
         </Box>      

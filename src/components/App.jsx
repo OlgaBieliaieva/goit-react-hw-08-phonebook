@@ -6,15 +6,14 @@ import { RestrictedRoute } from './RestrictedRoute';
 import { refreshUser } from '../redux/auth/operations';
 import { useAuth } from '../hooks/useAuth';
 import Home from '../pages/Home/Home';
-
-
+import Register from '../pages/Register';
 
 // const HomePage = lazy(() => import('../pages/Home'));
-const RegisterPage = lazy(() => import('../pages/Register'));
-const LoginPage = lazy(() => import('../pages/Login'));
+// const RegisterPage = lazy(() => import('../pages/Register'));
+// const LoginPage = lazy(() => import('../pages/Login'));
 const ContactsPage = lazy(() => import('../pages/Contacts'));
 
-export const App=()=>{
+export const App = () => {
   const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
 
@@ -26,31 +25,23 @@ export const App=()=>{
     <b>Refreshing user...</b>
   ) : (
     <Routes>
-      
-        <Route path="/" element={<RestrictedRoute redirectTo="/contacts" component={<Home />} />} />
-        <Route
-          path="/register"
-          element={
-            <RestrictedRoute redirectTo="/contacts" component={<RegisterPage />} />
-          }
-        />
-        {/* <Route
+      <Route
+        path="/"
+        element={
+          <RestrictedRoute redirectTo="/contacts" component={<Home />} />
+        }
+      />
+      <Route path="/register" element={<RestrictedRoute redirectTo="/contacts" component={<Register />} />} />
+      {/* <Route
           path="/login"
           element={
             <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
           }
         /> */}
-        <Route
-          path="/contacts"
-          element={
-            <PrivateRoute redirectTo="/" component={<ContactsPage />} />
-          }
-        />
-      
+      <Route
+        path="/contacts"
+        element={<PrivateRoute redirectTo="/" component={<ContactsPage />} />}
+      />
     </Routes>
   );
-  
-
-}
-
-
+};
