@@ -5,7 +5,7 @@ import { useSelector,
 import { DataGrid } from '@mui/x-data-grid';
 // import { deleteContact } from 'redux/contacts/operations';
 import { selectContacts, selectFilterQuery } from 'redux/contacts/selectors';
-import css from './ContactList.module.css';
+
 
 
 const columns = [
@@ -17,7 +17,7 @@ const columns = [
 
 export let selectedRows = [];
 
-export default function ContactList() {
+export const ContactTable=()=> {
   const contacts = useSelector(selectContacts);
   const filterQuery = useSelector(selectFilterQuery);
   // const dispatch = useDispatch();
@@ -93,7 +93,7 @@ console.log(filteredContacts);
     //       );
     //     })}
     // </ul>
-    <p className={css.contactListDefault}>
+    <p >
       Sorry, your phonebook is empty. <br></br>
       Add your first contact, please.
     </p>

@@ -6,7 +6,7 @@ import {
   Avatar,
   Button,
   CssBaseline,
-  TextField,  
+  TextField,
   Box,
   Grid,
   Typography,
@@ -14,7 +14,6 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-// import css from './RegisterForm.module.css';
 
 const defaultTheme = createTheme();
 
@@ -35,9 +34,9 @@ export const RegisterForm = () => {
   };
 
   return (
-<ThemeProvider theme={defaultTheme}>
-      <Grid container sx={{ height: '100vh', width: '70%', maxWidth: '400px' }}>
-        <CssBaseline />        
+    <ThemeProvider theme={defaultTheme}>
+      <Grid component={'section'} container sx={{ height: '100vh', width: '70%', maxWidth: '400px' }}>
+        <CssBaseline />
         <Box
           sx={{
             my: 8,
@@ -60,7 +59,7 @@ export const RegisterForm = () => {
             onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >
-             <TextField
+            <TextField
               margin="normal"
               required
               fullWidth
@@ -68,7 +67,6 @@ export const RegisterForm = () => {
               name="name"
               id="name"
               label="Name"
-              // autoComplete="email"
               autoFocus
             />
             <TextField
@@ -79,8 +77,6 @@ export const RegisterForm = () => {
               name="email"
               id="email"
               label="Email Address"
-              autoComplete="email"
-              
             />
             <TextField
               margin="normal"
@@ -90,9 +86,7 @@ export const RegisterForm = () => {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
             />
-
             <Button
               type="submit"
               fullWidth
@@ -102,35 +96,11 @@ export const RegisterForm = () => {
               Sign Up
             </Button>
             <Grid container>
-              {/* <Grid item> */}
-                <Link to="/" 
-                // variant="body2"
-                >
-                  Already have an account? Sign In
-                </Link>
-              {/* </Grid> */}
-            </Grid>            
+              <Link to="/">Already have an account? Sign In</Link>
+            </Grid>
           </Box>
-        </Box>      
+        </Box>
       </Grid>
     </ThemeProvider>
   );
-
-
-  //   <form  onSubmit={handleSubmit} autoComplete="off">
-  //     <label >
-  //       Username
-  //       <input type="text" name="name" />
-  //     </label>
-  //     <label >
-  //       Email
-  //       <input type="email" name="email" />
-  //     </label>
-  //     <label >
-  //       Password
-  //       <input type="password" name="password" />
-  //     </label>
-  //     <button type="submit">Register</button>
-  //   </form>
-  // );
 };

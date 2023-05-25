@@ -35,7 +35,7 @@ export const LoginForm = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container sx={{ height: '100vh' }}>
+      <Grid component={'section'} container sx={{ height: '100vh', width: '50%' }}>
         <CssBaseline />        
         <Box
           sx={{
@@ -66,8 +66,7 @@ export const LoginForm = () => {
               type="email"
               name="email"
               id="email"
-              label="Email Address"
-              autoComplete="email"
+              label="Email Address"              
               autoFocus
             />
             <TextField
@@ -77,8 +76,7 @@ export const LoginForm = () => {
               name="password"
               label="Password"
               type="password"
-              id="password"
-              autoComplete="current-password"
+              id="password"              
             />
 
             <Button
@@ -89,31 +87,14 @@ export const LoginForm = () => {
             >
               Sign In
             </Button>
-            <Grid container>
-              {/* <Grid item> */}
-                <Link to="/register" 
-                // variant="body2"
-                >
+            <Grid container>              
+                <Link to="/register">
                   Don't have an account? Sign Up
-                </Link>
-              {/* </Grid> */}
+                </Link>             
             </Grid>            
           </Box>
         </Box>      
       </Grid>
     </ThemeProvider>
-  );
-
-  //   <form  onSubmit={handleSubmit} autoComplete="off">
-  //     <label >
-  //       Email
-  //       <input type="email" name="email" />
-  //     </label>
-  //     <label >
-  //       Password
-  //       <input type="password" name="password" />
-  //     </label>
-  //     <button type="submit">Log In</button>
-  //   </form>
-  // );
+  ); 
 };

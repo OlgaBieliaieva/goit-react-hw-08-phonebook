@@ -18,7 +18,7 @@ import { selectContacts } from 'redux/contacts/selectors';
 
 const defaultTheme = createTheme();
 
-export default function ContactForm({onClose}) {
+export const ContactForm=({onClose})=> {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
