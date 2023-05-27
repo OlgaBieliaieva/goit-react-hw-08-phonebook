@@ -1,5 +1,8 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+//REDUX
+import { addContact, updateContact } from 'redux/contacts/operations';
+import { selectContacts } from 'redux/contacts/selectors';
+//MUI
 import {
   Button,
   IconButton,
@@ -12,58 +15,80 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import HighlightOffSharpIcon from '@mui/icons-material/HighlightOffSharp';
-import { addContact } from 'redux/contacts/operations';
-import { selectContacts } from 'redux/contacts/selectors';
-// import css from './ContactForm.module.css';
+//COMPONENTS
+import { selectedRows } from 'components/ContactTable/ContactTable';
 
 const defaultTheme = createTheme();
 
-export const ContactForm=({onClose})=> {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
+export const ContactForm = ({
+  name,
+  number,
+  handleInputChange,
+  formReset,
+  onClose,
+}) => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-
-      case 'phone':
-        setNumber(value);
-        break;
-
-      default:
-        return;
-    }
-  };
-
   const handleSubmit = e => {
     e.preventDefault(e);
-    createContact(name, number);
-    reset();
-  };
-
-  const createContact = (name, number) => {
-    const newContact = {
-      name: name,
-      number: number,
-    };
-    const contactNames = [];
-    contacts.map(contact => contactNames.push(contact.name));
-
-    if (contactNames.includes(name)) {
-      return alert(`${name} is already in contacts`);
+    if (selectedRows.length !== 0) {
+      editContact(selectedRows[0], name, number);
+    } else {
+      createContact(name, number);
     }
-    dispatch(addContact(newContact));
+    formReset();
   };
 
-  const reset = () => {
-    setName('');
-    setNumber('');
+  const editContact = (id, newName, newNumber) => {
+    const newContact = {
+      id: id,
+      name: newName,
+      number: newNumber,
+    };
+    const userConfirm = window.confirm(`Do you want to save changes?`);
+    if (userConfirm) {
+      onClose();
+      dispatch(updateContact(newContact));
+    }
+    onClose();
+  };
+
+  const createContact = (newName, newNumber) => {
+    const newContact = {
+      name: newName,
+      number: newNumber,
+    };
+    const checkedContacts = contacts.map(({ id, name, number }) => {
+      if (name === newName) {
+        const userConfirm = window.confirm(
+          `"${name}" is already exist. Do you want to update contact?`
+        );
+        if (userConfirm) {
+          editContact(id, newName, newNumber);
+          return null;
+        }
+        onClose();
+        return null;
+      }
+      if (number === newNumber) {
+        const userConfirm = window.confirm(
+          `This number "${number}" is already exist. Do you want to update contact?`
+        );
+        if (userConfirm) {
+          editContact(id, newName, newNumber);
+          return null;
+        }
+        onClose();
+        return null;
+      }
+      return id;
+    });
+    if (checkedContacts.includes(null)) {
+      return;
+    }
+    onClose();
+    dispatch(addContact(newContact));
   };
 
   return (
@@ -79,11 +104,15 @@ export const ContactForm=({onClose})=> {
             alignItems: 'center',
           }}
         >
-          <IconButton fontSize="large" sx={{position: 'absolute', top: '8px', right: '8px'}} onClick={onClose}>
+          <IconButton
+            fontSize="large"
+            sx={{ position: 'absolute', top: '8px', right: '8px' }}
+            onClick={onClose}
+          >
             <HighlightOffSharpIcon fontSize="large" />
           </IconButton>
           <Typography component="h1" variant="h5">
-            Add contact
+            Contact
           </Typography>
           <Box
             component="form"
@@ -100,7 +129,7 @@ export const ContactForm=({onClose})=> {
               id="name"
               label="Name"
               value={name}
-              onChange={handleChange}
+              onChange={handleInputChange}
               placeholder="type name here..."
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -116,7 +145,7 @@ export const ContactForm=({onClose})=> {
               type="tel"
               id="phone"
               value={number}
-              onChange={handleChange}
+              onChange={handleInputChange}
               placeholder="type number here..."
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
@@ -135,45 +164,5 @@ export const ContactForm=({onClose})=> {
         </Box>
       </Grid>
     </ThemeProvider>
-    // <form
-    //   className={css.contactForm}
-    //   onSubmit={handleSubmit}
-    //   name={name}
-    //   number={number}
-    // >
-    //   <label className={css.formLabel}>
-    //     Name
-    //     <input
-    //       className={css.formInput}
-    //       type="text"
-    //       name="name"
-    //       value={name}
-    //       onChange={handleChange}
-    //       placeholder="type name here..."
-    //       pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-    //       title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-    //       required
-    //       autoComplete="off"
-    //     />
-    //   </label>
-    //   <label className={css.formLabel}>
-    //     Number
-    //     <input
-    //       className={css.formInput}
-    //       type="tel"
-    //       name="phone"
-    //       value={number}
-    //       onChange={handleChange}
-    //       placeholder="type number here..."
-    //       pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-    //       title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-    //       required
-    //       autoComplete="off"
-    //     />
-    //   </label>
-    //   <button className={css.formBtn} type="submit">
-    //     Add contact
-    //   </button>
-    // </form>
   );
-}
+};

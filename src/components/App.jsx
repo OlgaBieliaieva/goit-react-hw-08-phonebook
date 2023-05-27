@@ -1,4 +1,4 @@
-import { useEffect, lazy } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './PrivateRoute';
@@ -8,11 +8,12 @@ import { useAuth } from '../hooks/useAuth';
 //PAGES
 import Home from '../pages/Home';
 import Register from '../pages/Register';
+import Contacts from '../pages/Contacts';
 //COMPONENTS
 import { Loader } from './Loader/Loader';
 
 
-const ContactsPage = lazy(() => import('../pages/Contacts'));
+
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ export const App = () => {
       />
       <Route
         path="/contacts"
-        element={<PrivateRoute redirectTo="/" component={<ContactsPage />} />}
+        element={<PrivateRoute redirectTo="/" component={<Contacts />} />}
       />
     </Routes>
   );

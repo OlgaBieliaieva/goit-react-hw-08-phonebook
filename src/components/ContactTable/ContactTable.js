@@ -1,57 +1,43 @@
 import { useState, useEffect } from 'react';
-import { useSelector, 
-  // useDispatch
- } from 'react-redux';
-import { DataGrid } from '@mui/x-data-grid';
-// import { deleteContact } from 'redux/contacts/operations';
+import { useSelector } from 'react-redux';
+//REDUX
 import { selectContacts, selectFilterQuery } from 'redux/contacts/selectors';
-
+//MUI
+import { DataGrid } from '@mui/x-data-grid';
 
 
 const columns = [
-  { field: 'avatar', headerName: ' AV', sortable: false },
-  { field: 'name', headerName: 'Name' },
-  { field: 'number', headerName: 'Phone', sortable: false },
-  { field: 'description', headerName: 'Description', sortable: false },
+  // { field: 'avatar', headerName: ' AV', sortable: false },
+  { field: 'name', headerName: 'Name', width: 170 },
+  { field: 'number', headerName: 'Phone', sortable: false, width: 170 },
+  // { field: 'description', headerName: 'Description', sortable: false },
 ];
 
 export let selectedRows = [];
 
-export const ContactTable=()=> {
+export const ContactTable = () => {
+  const [rowSelectionModel, setRowSelectionModel] = useState([]);
   const contacts = useSelector(selectContacts);
   const filterQuery = useSelector(selectFilterQuery);
-  // const dispatch = useDispatch();
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filterQuery.toLowerCase())
   );
 
-  const [rowSelectionModel, setRowSelectionModel] = useState([]);
-useEffect(()=>{
-  if(!rowSelectionModel){
-   return 
-  }
-  selectedRows = [...rowSelectionModel]
-}, [rowSelectionModel])
+  useEffect(() => {
+    if (!rowSelectionModel) {
+      return;
+    }
+    selectedRows = [...rowSelectionModel];
+  }, [rowSelectionModel]);
 
-  // const removeContact = e => {
-  //   const contactId = e.target.id;
-  //   dispatch(deleteContact(contactId));
-  // };
-
-  // const updateContact = e => {
-  //   const contactId = e.target.id;
-  //   dispatch(updateContact(contactId));
-  // };
-console.log(filteredContacts);
-
-  return contacts.length > 0 ? (
+  return (
     <div style={{ width: '100%' }}>
       <DataGrid
-      checkboxSelection
-      onRowSelectionModelChange={(newRowSelectionModel) => {
-        setRowSelectionModel(newRowSelectionModel);
-      }}
-      rowSelectionModel={rowSelectionModel}
+        checkboxSelection
+        onRowSelectionModelChange={newRowSelectionModel => {
+          setRowSelectionModel(newRowSelectionModel);
+        }}
+        rowSelectionModel={rowSelectionModel}
         rows={filteredContacts}
         columns={columns}
         initialState={{
@@ -59,44 +45,9 @@ console.log(filteredContacts);
             paginationModel: { page: 0, pageSize: 5 },
           },
         }}
-        pageSizeOptions={[5, 10]}        
+        pageSizeOptions={[5, 10]}
+        sx={{ [`& .MuiDataGrid-virtualScroller`]: { minHeight: '52px' } }}
       />
     </div>
-  ) : (
-    // <ul className={css.contactList}>
-    //   {contacts
-    //     .filter(contact =>
-    //       contact.name.toLowerCase().includes(filterQuery.toLowerCase())
-    //     )
-    //     .map(({ id, name, number }) => {
-    //       return (
-    //         <li className={css.contactItem} key={id}>
-    //           {name}: {number}
-    //           <button
-    //             className={css.listItemBtn}
-    //             id={id}
-    //             type="button"
-    //             // onClick={}
-    //           >
-    //             Edit
-    //           </button>
-    //           <button
-    //             className={css.listItemBtn}
-    //             id={id}
-    //             type="button"
-    //             onClick={removeContact}
-    //           >
-    //             Delete
-    //           </button>
-
-    //         </li>
-    //       );
-    //     })}
-    // </ul>
-    <p >
-      Sorry, your phonebook is empty. <br></br>
-      Add your first contact, please.
-    </p>
   );
-}
-
+};
