@@ -35,7 +35,7 @@ export const LoginForm = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid component={'section'} container sx={{ height: '100vh', width: '50%' }}>
+      <Grid component={'section'} container sx={{ height: '100vh', width: '50%', justifyContent: 'center' }}>
         <CssBaseline />        
         <Box
           sx={{
