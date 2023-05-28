@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 //REDUX
 import { addContact, updateContact } from 'redux/contacts/operations';
 import { selectContacts } from 'redux/contacts/selectors';
@@ -166,3 +167,11 @@ export const ContactForm = ({
     </ThemeProvider>
   );
 };
+
+ContactForm.propTypes ={
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  formReset: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+}
